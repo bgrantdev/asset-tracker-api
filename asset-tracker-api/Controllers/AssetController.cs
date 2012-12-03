@@ -14,13 +14,12 @@ namespace asset_tracker_api.Controllers
 {
     public class AssetController : ApiController
     {
-        private AssetTrackerEntities db = new AssetTrackerEntities();
+        private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
         // GET api/Asset
         public IEnumerable<asset> Getassets()
         {
-            var assets = db.assets.Include("facility1").Include("room1");
-            return assets.AsEnumerable();
+            return db.assets.AsEnumerable();
         }
 
         // GET api/Asset/5

@@ -12,35 +12,35 @@ using asset_tracker_api.Models;
 
 namespace asset_tracker_api.Controllers
 {
-    public class RoomController : ApiController
+    public class AddressController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
-        // GET api/Room
-        public IEnumerable<room> Getrooms()
+        // GET api/Address
+        public IEnumerable<address> Getaddresses()
         {
-            return db.rooms.AsEnumerable();
+            return db.addresses.AsEnumerable();
         }
 
-        // GET api/Room/5
-        public room Getroom(int id)
+        // GET api/Address/5
+        public address Getaddress(int id)
         {
-            room room = db.rooms.Single(r => r.id == id);
-            if (room == null)
+            address address = db.addresses.Single(a => a.id == id);
+            if (address == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return room;
+            return address;
         }
 
-        // PUT api/Room/5
-        public HttpResponseMessage Putroom(int id, room room)
+        // PUT api/Address/5
+        public HttpResponseMessage Putaddress(int id, address address)
         {
-            if (ModelState.IsValid && id == room.id)
+            if (ModelState.IsValid && id == address.id)
             {
-                db.rooms.Attach(room);
-                db.ObjectStateManager.ChangeObjectState(room, EntityState.Modified);
+                db.addresses.Attach(address);
+                db.ObjectStateManager.ChangeObjectState(address, EntityState.Modified);
 
                 try
                 {
@@ -59,16 +59,16 @@ namespace asset_tracker_api.Controllers
             }
         }
 
-        // POST api/Room
-        public HttpResponseMessage Postroom(room room)
+        // POST api/Address
+        public HttpResponseMessage Postaddress(address address)
         {
             if (ModelState.IsValid)
             {
-                db.rooms.AddObject(room);
+                db.addresses.AddObject(address);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, room);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = room.id }));
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, address);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = address.id }));
                 return response;
             }
             else
@@ -77,16 +77,16 @@ namespace asset_tracker_api.Controllers
             }
         }
 
-        // DELETE api/Room/5
-        public HttpResponseMessage Deleteroom(int id)
+        // DELETE api/Address/5
+        public HttpResponseMessage Deleteaddress(int id)
         {
-            room room = db.rooms.Single(r => r.id == id);
-            if (room == null)
+            address address = db.addresses.Single(a => a.id == id);
+            if (address == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.rooms.DeleteObject(room);
+            db.addresses.DeleteObject(address);
 
             try
             {
@@ -97,7 +97,7 @@ namespace asset_tracker_api.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, room);
+            return Request.CreateResponse(HttpStatusCode.OK, address);
         }
 
         protected override void Dispose(bool disposing)

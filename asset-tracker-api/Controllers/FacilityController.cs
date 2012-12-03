@@ -14,7 +14,7 @@ namespace asset_tracker_api.Controllers
 {
     public class FacilityController : ApiController
     {
-        private AssetTrackerEntities db = new AssetTrackerEntities();
+        private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
         // GET api/Facility
         public IEnumerable<facility> Getfacilities()

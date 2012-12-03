@@ -18,10 +18,10 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("AssetTrackerModel", "FK_address_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "address", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.address), true)]
-[assembly: EdmRelationshipAttribute("AssetTrackerModel", "FK_asset_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
-[assembly: EdmRelationshipAttribute("AssetTrackerModel", "FK_asset_room", "room", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.room), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
-[assembly: EdmRelationshipAttribute("AssetTrackerModel", "FK_room_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "room", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.room), true)]
+[assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_facility_address", "address", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.address), "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.facility), true)]
+[assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
+[assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_room", "room", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.room), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
+[assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_room_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "room", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.room), true)]
 
 #endregion
 
@@ -32,32 +32,32 @@ namespace asset_tracker_api.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class AssetTrackerEntities : ObjectContext
+    public partial class RBSAssetTrackerEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new AssetTrackerEntities object using the connection string found in the 'AssetTrackerEntities' section of the application configuration file.
+        /// Initializes a new RBSAssetTrackerEntities object using the connection string found in the 'RBSAssetTrackerEntities' section of the application configuration file.
         /// </summary>
-        public AssetTrackerEntities() : base("name=AssetTrackerEntities", "AssetTrackerEntities")
+        public RBSAssetTrackerEntities() : base("name=RBSAssetTrackerEntities", "RBSAssetTrackerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new AssetTrackerEntities object.
+        /// Initialize a new RBSAssetTrackerEntities object.
         /// </summary>
-        public AssetTrackerEntities(string connectionString) : base(connectionString, "AssetTrackerEntities")
+        public RBSAssetTrackerEntities(string connectionString) : base(connectionString, "RBSAssetTrackerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new AssetTrackerEntities object.
+        /// Initialize a new RBSAssetTrackerEntities object.
         /// </summary>
-        public AssetTrackerEntities(EntityConnection connection) : base(connection, "AssetTrackerEntities")
+        public RBSAssetTrackerEntities(EntityConnection connection) : base(connection, "RBSAssetTrackerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -194,16 +194,14 @@ namespace asset_tracker_api.Models
         /// Create a new address object.
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
-        /// <param name="facility_id">Initial value of the facility_id property.</param>
         /// <param name="line_1">Initial value of the line_1 property.</param>
         /// <param name="city">Initial value of the city property.</param>
         /// <param name="state">Initial value of the state property.</param>
         /// <param name="zip">Initial value of the zip property.</param>
-        public static address Createaddress(global::System.Int32 id, global::System.Int32 facility_id, global::System.String line_1, global::System.String city, global::System.String state, global::System.String zip)
+        public static address Createaddress(global::System.Int32 id, global::System.String line_1, global::System.String city, global::System.String state, global::System.String zip)
         {
             address address = new address();
             address.id = id;
-            address.facility_id = facility_id;
             address.line_1 = line_1;
             address.city = city;
             address.state = state;
@@ -240,30 +238,6 @@ namespace asset_tracker_api.Models
         private global::System.Int32 _id;
         partial void OnidChanging(global::System.Int32 value);
         partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 facility_id
-        {
-            get
-            {
-                return _facility_id;
-            }
-            set
-            {
-                Onfacility_idChanging(value);
-                ReportPropertyChanging("facility_id");
-                _facility_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("facility_id");
-                Onfacility_idChanged();
-            }
-        }
-        private global::System.Int32 _facility_id;
-        partial void Onfacility_idChanging(global::System.Int32 value);
-        partial void Onfacility_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -387,47 +361,6 @@ namespace asset_tracker_api.Models
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_address_facility", "facility")]
-        public facility facility
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_address_facility", "facility").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_address_facility", "facility").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<facility> facilityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_address_facility", "facility");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<facility>("AssetTrackerModel.FK_address_facility", "facility", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -444,22 +377,20 @@ namespace asset_tracker_api.Models
         /// Create a new asset object.
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
+        /// <param name="facility_id">Initial value of the facility_id property.</param>
+        /// <param name="room_id">Initial value of the room_id property.</param>
         /// <param name="name">Initial value of the name property.</param>
-        /// <param name="sku">Initial value of the sku property.</param>
         /// <param name="add_date">Initial value of the add_date property.</param>
         /// <param name="last_scan">Initial value of the last_scan property.</param>
-        /// <param name="room">Initial value of the room property.</param>
-        /// <param name="facility">Initial value of the facility property.</param>
-        public static asset Createasset(global::System.Int32 id, global::System.String name, global::System.String sku, global::System.DateTime add_date, global::System.DateTime last_scan, global::System.Int32 room, global::System.Int32 facility)
+        public static asset Createasset(global::System.Int32 id, global::System.Int32 facility_id, global::System.Int32 room_id, global::System.String name, global::System.DateTime add_date, global::System.DateTime last_scan)
         {
             asset asset = new asset();
             asset.id = id;
+            asset.facility_id = facility_id;
+            asset.room_id = room_id;
             asset.name = name;
-            asset.sku = sku;
             asset.add_date = add_date;
             asset.last_scan = last_scan;
-            asset.room = room;
-            asset.facility = facility;
             return asset;
         }
 
@@ -498,6 +429,78 @@ namespace asset_tracker_api.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 facility_id
+        {
+            get
+            {
+                return _facility_id;
+            }
+            set
+            {
+                Onfacility_idChanging(value);
+                ReportPropertyChanging("facility_id");
+                _facility_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("facility_id");
+                Onfacility_idChanged();
+            }
+        }
+        private global::System.Int32 _facility_id;
+        partial void Onfacility_idChanging(global::System.Int32 value);
+        partial void Onfacility_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 room_id
+        {
+            get
+            {
+                return _room_id;
+            }
+            set
+            {
+                Onroom_idChanging(value);
+                ReportPropertyChanging("room_id");
+                _room_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("room_id");
+                Onroom_idChanged();
+            }
+        }
+        private global::System.Int32 _room_id;
+        partial void Onroom_idChanging(global::System.Int32 value);
+        partial void Onroom_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String sku
+        {
+            get
+            {
+                return _sku;
+            }
+            set
+            {
+                OnskuChanging(value);
+                ReportPropertyChanging("sku");
+                _sku = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("sku");
+                OnskuChanged();
+            }
+        }
+        private global::System.String _sku;
+        partial void OnskuChanging(global::System.String value);
+        partial void OnskuChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String name
         {
             get
@@ -520,26 +523,26 @@ namespace asset_tracker_api.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String sku
+        public global::System.String description
         {
             get
             {
-                return _sku;
+                return _description;
             }
             set
             {
-                OnskuChanging(value);
-                ReportPropertyChanging("sku");
-                _sku = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("sku");
-                OnskuChanged();
+                OndescriptionChanging(value);
+                ReportPropertyChanging("description");
+                _description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("description");
+                OndescriptionChanged();
             }
         }
-        private global::System.String _sku;
-        partial void OnskuChanging(global::System.String value);
-        partial void OnskuChanged();
+        private global::System.String _description;
+        partial void OndescriptionChanging(global::System.String value);
+        partial void OndescriptionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -588,136 +591,9 @@ namespace asset_tracker_api.Models
         private global::System.DateTime _last_scan;
         partial void Onlast_scanChanging(global::System.DateTime value);
         partial void Onlast_scanChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 room
-        {
-            get
-            {
-                return _room;
-            }
-            set
-            {
-                OnroomChanging(value);
-                ReportPropertyChanging("room");
-                _room = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("room");
-                OnroomChanged();
-            }
-        }
-        private global::System.Int32 _room;
-        partial void OnroomChanging(global::System.Int32 value);
-        partial void OnroomChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 facility
-        {
-            get
-            {
-                return _facility;
-            }
-            set
-            {
-                OnfacilityChanging(value);
-                ReportPropertyChanging("facility");
-                _facility = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("facility");
-                OnfacilityChanged();
-            }
-        }
-        private global::System.Int32 _facility;
-        partial void OnfacilityChanging(global::System.Int32 value);
-        partial void OnfacilityChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_asset_facility", "facility")]
-        public facility facility1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_asset_facility", "facility").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_asset_facility", "facility").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<facility> facility1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_asset_facility", "facility");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<facility>("AssetTrackerModel.FK_asset_facility", "facility", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_asset_room", "room")]
-        public room room1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<room>("AssetTrackerModel.FK_asset_room", "room").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<room>("AssetTrackerModel.FK_asset_room", "room").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<room> room1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<room>("AssetTrackerModel.FK_asset_room", "room");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<room>("AssetTrackerModel.FK_asset_room", "room", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -734,16 +610,18 @@ namespace asset_tracker_api.Models
         /// Create a new facility object.
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="address_id">Initial value of the address_id property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="add_date">Initial value of the add_date property.</param>
-        /// <param name="user_id">Initial value of the user_id property.</param>
-        public static facility Createfacility(global::System.Int32 id, global::System.String name, global::System.DateTime add_date, global::System.Guid user_id)
+        public static facility Createfacility(global::System.Int32 id, global::System.Guid user_id, global::System.Int32 address_id, global::System.String name, global::System.DateTime add_date)
         {
             facility facility = new facility();
             facility.id = id;
+            facility.user_id = user_id;
+            facility.address_id = address_id;
             facility.name = name;
             facility.add_date = add_date;
-            facility.user_id = user_id;
             return facility;
         }
 
@@ -782,6 +660,54 @@ namespace asset_tracker_api.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Guid user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private global::System.Guid _user_id;
+        partial void Onuser_idChanging(global::System.Guid value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 address_id
+        {
+            get
+            {
+                return _address_id;
+            }
+            set
+            {
+                Onaddress_idChanging(value);
+                ReportPropertyChanging("address_id");
+                _address_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("address_id");
+                Onaddress_idChanged();
+            }
+        }
+        private global::System.Int32 _address_id;
+        partial void Onaddress_idChanging(global::System.Int32 value);
+        partial void Onaddress_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String name
         {
             get
@@ -824,102 +750,9 @@ namespace asset_tracker_api.Models
         private global::System.DateTime _add_date;
         partial void Onadd_dateChanging(global::System.DateTime value);
         partial void Onadd_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid user_id
-        {
-            get
-            {
-                return _user_id;
-            }
-            set
-            {
-                Onuser_idChanging(value);
-                ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("user_id");
-                Onuser_idChanged();
-            }
-        }
-        private global::System.Guid _user_id;
-        partial void Onuser_idChanging(global::System.Guid value);
-        partial void Onuser_idChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_address_facility", "address")]
-        public EntityCollection<address> addresses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<address>("AssetTrackerModel.FK_address_facility", "address");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<address>("AssetTrackerModel.FK_address_facility", "address", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_asset_facility", "asset")]
-        public EntityCollection<asset> assets
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<asset>("AssetTrackerModel.FK_asset_facility", "asset");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<asset>("AssetTrackerModel.FK_asset_facility", "asset", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_room_facility", "room")]
-        public EntityCollection<room> rooms
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<room>("AssetTrackerModel.FK_room_facility", "room");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<room>("AssetTrackerModel.FK_room_facility", "room", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -936,16 +769,16 @@ namespace asset_tracker_api.Models
         /// Create a new room object.
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
+        /// <param name="facility_id">Initial value of the facility_id property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="add_date">Initial value of the add_date property.</param>
-        /// <param name="facility">Initial value of the facility property.</param>
-        public static room Createroom(global::System.Int32 id, global::System.String name, global::System.DateTime add_date, global::System.Int32 facility)
+        public static room Createroom(global::System.Int32 id, global::System.Int32 facility_id, global::System.String name, global::System.DateTime add_date)
         {
             room room = new room();
             room.id = id;
+            room.facility_id = facility_id;
             room.name = name;
             room.add_date = add_date;
-            room.facility = facility;
             return room;
         }
 
@@ -984,6 +817,30 @@ namespace asset_tracker_api.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 facility_id
+        {
+            get
+            {
+                return _facility_id;
+            }
+            set
+            {
+                Onfacility_idChanging(value);
+                ReportPropertyChanging("facility_id");
+                _facility_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("facility_id");
+                Onfacility_idChanged();
+            }
+        }
+        private global::System.Int32 _facility_id;
+        partial void Onfacility_idChanging(global::System.Int32 value);
+        partial void Onfacility_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String name
         {
             get
@@ -1026,96 +883,9 @@ namespace asset_tracker_api.Models
         private global::System.DateTime _add_date;
         partial void Onadd_dateChanging(global::System.DateTime value);
         partial void Onadd_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 facility
-        {
-            get
-            {
-                return _facility;
-            }
-            set
-            {
-                OnfacilityChanging(value);
-                ReportPropertyChanging("facility");
-                _facility = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("facility");
-                OnfacilityChanged();
-            }
-        }
-        private global::System.Int32 _facility;
-        partial void OnfacilityChanging(global::System.Int32 value);
-        partial void OnfacilityChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_asset_room", "asset")]
-        public EntityCollection<asset> assets
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<asset>("AssetTrackerModel.FK_asset_room", "asset");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<asset>("AssetTrackerModel.FK_asset_room", "asset", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_room_facility", "facility")]
-        public facility facility1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_room_facility", "facility").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_room_facility", "facility").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<facility> facility1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<facility>("AssetTrackerModel.FK_room_facility", "facility");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<facility>("AssetTrackerModel.FK_room_facility", "facility", value);
-                }
-            }
-        }
-
-        #endregion
     }
 
     #endregion
