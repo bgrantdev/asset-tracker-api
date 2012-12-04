@@ -14,6 +14,7 @@ using System.Data.EntityClient;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using AssetTracker.DTO;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -188,6 +189,19 @@ namespace asset_tracker_api.Models
     [DataContractAttribute(IsReference=true)]
     public partial class address : EntityObject
     {
+        public addressDTO toDTO()
+        {
+            return new addressDTO()
+            {
+                id = this.id,
+                line_1 = this.line_1,
+                line_2 = this.line_2,
+                city = this.city,
+                state = this.state,
+                zip = this.zip,
+            };
+        }
+
         #region Factory Method
     
         /// <summary>
@@ -371,6 +385,22 @@ namespace asset_tracker_api.Models
     [DataContractAttribute(IsReference=true)]
     public partial class asset : EntityObject
     {
+        public assetDTO toDTO()
+        {
+            return new assetDTO()
+            {
+                id = this.id,
+                facility_id = this.facility_id,
+                room_id = this.room_id,
+                name = this.name,
+                sku = this.sku,
+                description = this.description,
+                add_date = this.add_date,
+                last_scan = this.last_scan,
+            };
+        }
+
+
         #region Factory Method
     
         /// <summary>
@@ -604,6 +634,16 @@ namespace asset_tracker_api.Models
     [DataContractAttribute(IsReference=true)]
     public partial class facility : EntityObject
     {
+        public facilityDTO toDTO()
+        {
+            return new facilityDTO()
+            {
+                id = this.id,
+                name = this.name,
+                add_date = this.add_date,
+            };
+        }
+
         #region Factory Method
     
         /// <summary>
@@ -763,6 +803,17 @@ namespace asset_tracker_api.Models
     [DataContractAttribute(IsReference=true)]
     public partial class room : EntityObject
     {
+        public roomDTO toDTO()
+        {
+            return new roomDTO() 
+            { 
+                id = this.id,
+                facility_id = this.facility_id,
+                name = this.name,
+                add_date = this.add_date,
+            };
+        }
+
         #region Factory Method
     
         /// <summary>

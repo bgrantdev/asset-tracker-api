@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using asset_tracker_api.Models;
+using AssetTracker.DTO;
 
 namespace asset_tracker_api.Controllers
 {
@@ -16,14 +17,8 @@ namespace asset_tracker_api.Controllers
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
-        // GET api/Room
-        public IEnumerable<room> Getrooms()
-        {
-            return db.rooms.AsEnumerable();
-        }
-
         // GET api/Room/5
-        public room Getroom(int id)
+        public roomDTO Getroom(int id)
         {
             room room = db.rooms.Single(r => r.id == id);
             if (room == null)
@@ -31,7 +26,7 @@ namespace asset_tracker_api.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return room;
+            return room.toDTO();
         }
 
         // PUT api/Room/5

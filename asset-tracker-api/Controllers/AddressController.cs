@@ -9,21 +9,16 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using asset_tracker_api.Models;
+using AssetTracker.DTO;
 
 namespace asset_tracker_api.Controllers
 {
     public class AddressController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
-
-        // GET api/Address
-        public IEnumerable<address> Getaddresses()
-        {
-            return db.addresses.AsEnumerable();
-        }
-
+        
         // GET api/Address/5
-        public address Getaddress(int id)
+        public addressDTO Getaddress(int id)
         {
             address address = db.addresses.Single(a => a.id == id);
             if (address == null)
@@ -31,7 +26,7 @@ namespace asset_tracker_api.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return address;
+            return address.toDTO();
         }
 
         // PUT api/Address/5

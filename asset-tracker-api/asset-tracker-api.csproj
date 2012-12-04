@@ -126,7 +126,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
+    <Compile Include="Controllers\FacilityAssetsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
+    <Compile Include="Controllers\FacilityRoomsController.cs" />
+    <Compile Include="Controllers\RoomAssetsController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +139,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssetTrackerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
