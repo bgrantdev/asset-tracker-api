@@ -14,6 +14,7 @@ using System.Security.Principal;
 
 namespace asset_tracker_api.Controllers
 {
+    [BasicHttpAuthorize]
     public class FacilityController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
@@ -22,7 +23,6 @@ namespace asset_tracker_api.Controllers
         
         public IEnumerable<facilityDTO> Getfacilities()
         {
-            IPrincipal p = (IPrincipal)this.Request.Properties["MS_UserPrincipal"];
             List<facilityDTO> facility_list = new List<facilityDTO>();
             foreach (facility aFacility in db.facilities)
             {
