@@ -17,7 +17,7 @@ namespace asset_tracker_api.Controllers
         public IEnumerable<assetDTO> Get(int id)
         {
             List<assetDTO> asset_list = new List<assetDTO>();
-            foreach (asset aAsset in db.assets.Where(a => a.room_id == id)
+            foreach (asset aAsset in db.assets.Where(a => a.room_id == id))
             {
                 asset_list.Add(aAsset.toDTO());
             }

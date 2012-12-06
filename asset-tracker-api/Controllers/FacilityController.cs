@@ -10,16 +10,19 @@ using System.Web;
 using System.Web.Http;
 using asset_tracker_api.Models;
 using AssetTracker.DTO;
+using System.Security.Principal;
 
 namespace asset_tracker_api.Controllers
 {
     public class FacilityController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
-
+        
         // GET api/Facility
+        
         public IEnumerable<facilityDTO> Getfacilities()
         {
+            IPrincipal p = (IPrincipal)this.Request.Properties["MS_UserPrincipal"];
             List<facilityDTO> facility_list = new List<facilityDTO>();
             foreach (facility aFacility in db.facilities)
             {
