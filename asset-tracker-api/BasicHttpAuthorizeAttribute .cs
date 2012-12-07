@@ -21,7 +21,7 @@ namespace asset_tracker_api
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            base.OnAuthorization(actionContext);
+            //base.OnAuthorization(actionContext);
             if (actionContext == null)
             {
                 throw new ArgumentNullException("actionContext");
@@ -38,7 +38,7 @@ namespace asset_tracker_api
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            base.HandleUnauthorizedRequest(actionContext);
+            //base.HandleUnauthorizedRequest(actionContext);
             if (actionContext == null)
             {
                 throw new ArgumentNullException("actionContext");

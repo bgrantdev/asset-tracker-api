@@ -14,6 +14,7 @@ using System.Security.Principal;
 
 namespace asset_tracker_api.Controllers
 {
+    
     [BasicHttpAuthorize]
     public class FacilityController : ApiController
     {
@@ -23,6 +24,7 @@ namespace asset_tracker_api.Controllers
         
         public IEnumerable<facilityDTO> Getfacilities()
         {
+            
             List<facilityDTO> facility_list = new List<facilityDTO>();
             foreach (facility aFacility in db.facilities)
             {
