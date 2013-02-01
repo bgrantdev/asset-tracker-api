@@ -9,11 +9,12 @@ using AssetTracker.DTO;
 
 namespace asset_tracker_api.Controllers
 {
+    //[BasicHttpAuthorize]
     public class FacilityAssetsController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
-        // GET api/facilityassets/5
+        // GET api/FacilityAssets/5
         public IEnumerable<assetDTO> Get(int id)
         {
             List<assetDTO> asset_list = new List<assetDTO>();

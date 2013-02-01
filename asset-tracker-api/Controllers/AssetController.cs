@@ -12,7 +12,7 @@ using asset_tracker_api.Models;
 
 namespace asset_tracker_api.Controllers
 {
-    [Authorize]
+    [BasicHttpAuthorize]
     public class AssetController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();

@@ -11,6 +11,8 @@ namespace AssetTracker.DTO
         public Int32 address_id { get; set; }
         public String name { get; set; }
         public DateTime add_date { get; set; }
+        public Int32 room_count { get; set; }
+        public Int32 asset_count { get; set; }
     }
 
     public class addressDTO

@@ -14,8 +14,7 @@ using System.Security.Principal;
 
 namespace asset_tracker_api.Controllers
 {
-    
-    [BasicHttpAuthorize]
+    //[BasicHttpAuthorize]
     public class FacilityController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
@@ -37,12 +36,15 @@ namespace asset_tracker_api.Controllers
         public facilityDTO Getfacility(int id)
         {
             facility facility = db.facilities.Single(f => f.id == id);
+            facilityDTO dto = facility.toDTO();
+            dto.room_count = db.rooms.Count(r => r.facility_id == facility.id);
+            dto.asset_count = db.assets.Count(a => a.facility_id == facility.id);
             if (facility == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return facility.toDTO();
+            return dto;
         }
 
         // PUT api/Facility/5
