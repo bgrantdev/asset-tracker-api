@@ -395,8 +395,8 @@ namespace asset_tracker_api.Models
                 name = this.name,
                 sku = this.sku,
                 description = this.description,
-                add_date = this.add_date,
-                last_scan = this.last_scan,
+                add_date = this.add_date.ToString("d"),
+                last_scan = this.last_scan.ToString("d"),
             };
         }
 

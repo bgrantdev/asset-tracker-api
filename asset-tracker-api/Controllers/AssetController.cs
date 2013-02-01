@@ -9,22 +9,18 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using asset_tracker_api.Models;
+using AssetTracker.DTO;
 
 namespace asset_tracker_api.Controllers
 {
-    [BasicHttpAuthorize]
+    //[BasicHttpAuthorize]
     public class AssetController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
-        // GET api/Asset
-        public IEnumerable<asset> Getassets()
-        {
-            return db.assets.AsEnumerable();
-        }
 
         // GET api/Asset/5
-        public asset Getasset(int id)
+        public assetDTO Getasset(int id)
         {
             asset asset = db.assets.Single(a => a.id == id);
             if (asset == null)
@@ -32,7 +28,7 @@ namespace asset_tracker_api.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return asset;
+            return asset.toDTO();
         }
 
         // PUT api/Asset/5

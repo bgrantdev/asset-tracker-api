@@ -41,7 +41,7 @@ namespace AssetTracker.DTO
         public String name { get; set; }
         public String sku { get; set; }
         public String description { get; set; }
-        public DateTime add_date { get; set; }
-        public DateTime last_scan  { get; set; }
+        public String add_date { get; set; }
+        public String last_scan  { get; set; }
     }
 }

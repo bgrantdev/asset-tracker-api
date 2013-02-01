@@ -9,7 +9,7 @@ using AssetTracker.DTO;
 
 namespace asset_tracker_api.Controllers
 {
-    [BasicHttpAuthorize]
+    //[BasicHttpAuthorize]
     public class RoomAssetsController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
