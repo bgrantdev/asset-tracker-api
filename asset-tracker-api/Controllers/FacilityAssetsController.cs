@@ -15,12 +15,18 @@ namespace asset_tracker_api.Controllers
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
 
         // GET api/FacilityAssets/5
-        public IEnumerable<assetDTO> Get(int id)
+        public IEnumerable<facilityAssetDTO> Get(int id)
         {
-            List<assetDTO> asset_list = new List<assetDTO>();
+            List<facilityAssetDTO> asset_list = new List<facilityAssetDTO>();
             foreach (asset aAsset in db.assets.Where(a => a.facility_id == id))
             {
-                asset_list.Add(aAsset.toDTO());
+                facilityAssetDTO asset = new facilityAssetDTO();
+                asset.id = aAsset.id;
+                asset.name = aAsset.name;
+                asset.sku = aAsset.sku;
+                room asset_room = db.rooms.Single(r => r.id == aAsset.room_id);
+                asset.room_name = asset_room.name;
+                asset_list.Add(asset);
             }
             return asset_list;
         }

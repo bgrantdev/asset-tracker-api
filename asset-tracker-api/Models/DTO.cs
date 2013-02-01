@@ -44,4 +44,12 @@ namespace AssetTracker.DTO
         public String add_date { get; set; }
         public String last_scan  { get; set; }
     }
+
+    public class facilityAssetDTO
+    {
+        public Int32 id { get; set; }
+        public String name { get; set; }
+        public String sku { get; set; }
+        public String room_name { get; set; }
+    }
 }
