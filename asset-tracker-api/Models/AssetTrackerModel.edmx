@@ -4,9 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AssetTrackerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="AssetTrackerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AssetTrackerModelStoreContainer">
-          <EntitySet Name="address" EntityType="AssetTrackerModel.Store.address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="asset" EntityType="AssetTrackerModel.Store.asset" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="facility" EntityType="AssetTrackerModel.Store.facility" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="room" EntityType="AssetTrackerModel.Store.room" store:Type="Tables" Schema="dbo" />
@@ -18,26 +17,11 @@
             <End Role="room" EntitySet="room" />
             <End Role="asset" EntitySet="asset" />
           </AssociationSet>
-          <AssociationSet Name="fk_facility_address" Association="AssetTrackerModel.Store.fk_facility_address">
-            <End Role="address" EntitySet="address" />
-            <End Role="facility" EntitySet="facility" />
-          </AssociationSet>
           <AssociationSet Name="fk_room_facility" Association="AssetTrackerModel.Store.fk_room_facility">
             <End Role="facility" EntitySet="facility" />
             <End Role="room" EntitySet="room" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="address">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="line_1" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="line_2" Type="nvarchar" MaxLength="50" />
-          <Property Name="city" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="state" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="zip" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
         <EntityType Name="asset">
           <Key>
             <PropertyRef Name="id" />
@@ -57,9 +41,13 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="address_id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="add_date" Type="datetime" Nullable="false" />
+          <Property Name="line_1" Type="nvarchar" MaxLength="100" />
+          <Property Name="line_2" Type="nvarchar" MaxLength="100" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="city " Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="room">
           <Key>
@@ -94,18 +82,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_facility_address">
-          <End Role="address" Type="AssetTrackerModel.Store.address" Multiplicity="1" />
-          <End Role="facility" Type="AssetTrackerModel.Store.facility" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="address">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="facility">
-              <PropertyRef Name="address_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_room_facility">
           <End Role="facility" Type="AssetTrackerModel.Store.facility" Multiplicity="1" />
           <End Role="room" Type="AssetTrackerModel.Store.room" Multiplicity="*" />
@@ -118,20 +94,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AssetTrackerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="RBSAssetTrackerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="addresses" EntityType="AssetTrackerModel.address" />
           <EntitySet Name="assets" EntityType="AssetTrackerModel.asset" />
           <EntitySet Name="facilities" EntityType="AssetTrackerModel.facility" />
           <EntitySet Name="rooms" EntityType="AssetTrackerModel.room" />
-          <AssociationSet Name="fk_facility_address" Association="AssetTrackerModel.fk_facility_address">
-            <End Role="address" EntitySet="addresses" />
-            <End Role="facility" EntitySet="facilities" />
-          </AssociationSet>
           <AssociationSet Name="fk_asset_facility" Association="AssetTrackerModel.fk_asset_facility">
             <End Role="facility" EntitySet="facilities" />
             <End Role="asset" EntitySet="assets" />
@@ -145,17 +115,6 @@
             <End Role="room" EntitySet="rooms" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="address">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="line_1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="line_2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="city" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="state" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
-          <Property Name="zip" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-        </EntityType>
         <EntityType Name="asset">
           <Key>
             <PropertyRef Name="id" />
@@ -175,9 +134,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="Guid" Nullable="false" />
-          <Property Name="address_id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="add_date" Type="DateTime" Nullable="false" />
+          <Property Type="String" Name="line_1" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="line_2" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="state" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="zip" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="city_" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="room">
           <Key>
@@ -188,18 +151,6 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="add_date" Type="DateTime" Nullable="false" />
         </EntityType>
-        <Association Name="fk_facility_address">
-          <End Role="address" Type="AssetTrackerModel.address" Multiplicity="1" />
-          <End Role="facility" Type="AssetTrackerModel.facility" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="address">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="facility">
-              <PropertyRef Name="address_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_asset_facility">
           <End Role="facility" Type="AssetTrackerModel.facility" Multiplicity="1" />
           <End Role="asset" Type="AssetTrackerModel.asset" Multiplicity="*" />
@@ -242,14 +193,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AssetTrackerModelStoreContainer" CdmEntityContainer="RBSAssetTrackerEntities">
-          <EntitySetMapping Name="addresses"><EntityTypeMapping TypeName="AssetTrackerModel.address"><MappingFragment StoreEntitySet="address">
-            <ScalarProperty Name="id" ColumnName="id" />
-            <ScalarProperty Name="line_1" ColumnName="line_1" />
-            <ScalarProperty Name="line_2" ColumnName="line_2" />
-            <ScalarProperty Name="city" ColumnName="city" />
-            <ScalarProperty Name="state" ColumnName="state" />
-            <ScalarProperty Name="zip" ColumnName="zip" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="assets"><EntityTypeMapping TypeName="AssetTrackerModel.asset"><MappingFragment StoreEntitySet="asset">
             <ScalarProperty Name="id" ColumnName="id" />
             <ScalarProperty Name="facility_id" ColumnName="facility_id" />
@@ -261,9 +204,13 @@
             <ScalarProperty Name="last_scan" ColumnName="last_scan" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="facilities"><EntityTypeMapping TypeName="AssetTrackerModel.facility"><MappingFragment StoreEntitySet="facility">
-            <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="city_" ColumnName="city " />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="line_2" ColumnName="line_2" />
+                <ScalarProperty Name="line_1" ColumnName="line_1" />
+                <ScalarProperty Name="id" ColumnName="id" />
             <ScalarProperty Name="user_id" ColumnName="user_id" />
-            <ScalarProperty Name="address_id" ColumnName="address_id" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="add_date" ColumnName="add_date" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -293,25 +240,20 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="AssetTrackerModel">
-        <EntityTypeShape EntityType="AssetTrackerModel.address" Width="1.5" PointX="0.75" PointY="2.875" Height="2.1725878906249996" IsExpanded="true" />
+      <Diagram Name="AssetTrackerModel" ZoomLevel="85">
         <EntityTypeShape EntityType="AssetTrackerModel.asset" Width="1.5" PointX="7.5" PointY="4.375" Height="2.5571907552083326" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssetTrackerModel.facility" Width="1.5" PointX="3" PointY="2.75" Height="1.9802864583333326" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetTrackerModel.facility" Width="1.5" PointX="3" PointY="2.75" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="AssetTrackerModel.room" Width="1.5" PointX="5.25" PointY="6.625" Height="1.7879850260416657" IsExpanded="true" />
-        <AssociationConnector Association="AssetTrackerModel.fk_facility_address" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.8026432291666663" />
-          <ConnectorPoint PointX="3" PointY="3.8026432291666663" />
-        </AssociationConnector>
         <AssociationConnector Association="AssetTrackerModel.fk_asset_facility" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="4.5526432291666659" />
-          <ConnectorPoint PointX="7.5" PointY="4.5526432291666659" />
+          <ConnectorPoint PointX="4.5" PointY="4.93724609375" />
+          <ConnectorPoint PointX="7.5" PointY="4.93724609375" />
         </AssociationConnector>
         <AssociationConnector Association="AssetTrackerModel.fk_asset_room" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.7785953776041659" />
           <ConnectorPoint PointX="7.5" PointY="6.7785953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="AssetTrackerModel.fk_room_facility" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="4.7302864583333326" />
+          <ConnectorPoint PointX="3.75" PointY="5.4994921875" />
           <ConnectorPoint PointX="3.75" PointY="7.5189925130208328" />
           <ConnectorPoint PointX="5.25" PointY="7.5189925130208328" />
         </AssociationConnector>

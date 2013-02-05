@@ -19,7 +19,6 @@ using AssetTracker.DTO;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_facility_address", "address", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.address), "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.facility), true)]
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_room", "room", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.room), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_room_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "room", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.room), true)]
@@ -77,22 +76,6 @@ namespace asset_tracker_api.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<address> addresses
-        {
-            get
-            {
-                if ((_addresses == null))
-                {
-                    _addresses = base.CreateObjectSet<address>("addresses");
-                }
-                return _addresses;
-            }
-        }
-        private ObjectSet<address> _addresses;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<asset> assets
         {
             get
@@ -142,14 +125,6 @@ namespace asset_tracker_api.Models
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the addresses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToaddresses(address address)
-        {
-            base.AddObject("addresses", address);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the assets EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToassets(asset asset)
@@ -184,202 +159,6 @@ namespace asset_tracker_api.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="AssetTrackerModel", Name="address")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class address : EntityObject
-    {
-        public addressDTO toDTO()
-        {
-            return new addressDTO()
-            {
-                id = this.id,
-                line_1 = this.line_1,
-                line_2 = this.line_2,
-                city = this.city,
-                state = this.state,
-                zip = this.zip,
-            };
-        }
-
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new address object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="line_1">Initial value of the line_1 property.</param>
-        /// <param name="city">Initial value of the city property.</param>
-        /// <param name="state">Initial value of the state property.</param>
-        /// <param name="zip">Initial value of the zip property.</param>
-        public static address Createaddress(global::System.Int32 id, global::System.String line_1, global::System.String city, global::System.String state, global::System.String zip)
-        {
-            address address = new address();
-            address.id = id;
-            address.line_1 = line_1;
-            address.city = city;
-            address.state = state;
-            address.zip = zip;
-            return address;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String line_1
-        {
-            get
-            {
-                return _line_1;
-            }
-            set
-            {
-                Online_1Changing(value);
-                ReportPropertyChanging("line_1");
-                _line_1 = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("line_1");
-                Online_1Changed();
-            }
-        }
-        private global::System.String _line_1;
-        partial void Online_1Changing(global::System.String value);
-        partial void Online_1Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String line_2
-        {
-            get
-            {
-                return _line_2;
-            }
-            set
-            {
-                Online_2Changing(value);
-                ReportPropertyChanging("line_2");
-                _line_2 = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("line_2");
-                Online_2Changed();
-            }
-        }
-        private global::System.String _line_2;
-        partial void Online_2Changing(global::System.String value);
-        partial void Online_2Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String city
-        {
-            get
-            {
-                return _city;
-            }
-            set
-            {
-                OncityChanging(value);
-                ReportPropertyChanging("city");
-                _city = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("city");
-                OncityChanged();
-            }
-        }
-        private global::System.String _city;
-        partial void OncityChanging(global::System.String value);
-        partial void OncityChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String state
-        {
-            get
-            {
-                return _state;
-            }
-            set
-            {
-                OnstateChanging(value);
-                ReportPropertyChanging("state");
-                _state = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("state");
-                OnstateChanged();
-            }
-        }
-        private global::System.String _state;
-        partial void OnstateChanging(global::System.String value);
-        partial void OnstateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String zip
-        {
-            get
-            {
-                return _zip;
-            }
-            set
-            {
-                OnzipChanging(value);
-                ReportPropertyChanging("zip");
-                _zip = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("zip");
-                OnzipChanged();
-            }
-        }
-        private global::System.String _zip;
-        partial void OnzipChanging(global::System.String value);
-        partial void OnzipChanged();
-
-        #endregion
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="AssetTrackerModel", Name="asset")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -399,8 +178,6 @@ namespace asset_tracker_api.Models
                 last_scan = this.last_scan.ToString("d"),
             };
         }
-
-
         #region Factory Method
     
         /// <summary>
@@ -641,9 +418,13 @@ namespace asset_tracker_api.Models
                 id = this.id,
                 name = this.name,
                 add_date = this.add_date,
+                line_1 = this.line_1,
+                line_2 = this.line_2,
+                city = this.city_,
+                state = this.state,
+                zip = this.zip,
             };
         }
-
         #region Factory Method
     
         /// <summary>
@@ -651,15 +432,13 @@ namespace asset_tracker_api.Models
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="user_id">Initial value of the user_id property.</param>
-        /// <param name="address_id">Initial value of the address_id property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="add_date">Initial value of the add_date property.</param>
-        public static facility Createfacility(global::System.Int32 id, global::System.Guid user_id, global::System.Int32 address_id, global::System.String name, global::System.DateTime add_date)
+        public static facility Createfacility(global::System.Int32 id, global::System.Guid user_id, global::System.String name, global::System.DateTime add_date)
         {
             facility facility = new facility();
             facility.id = id;
             facility.user_id = user_id;
-            facility.address_id = address_id;
             facility.name = name;
             facility.add_date = add_date;
             return facility;
@@ -724,30 +503,6 @@ namespace asset_tracker_api.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 address_id
-        {
-            get
-            {
-                return _address_id;
-            }
-            set
-            {
-                Onaddress_idChanging(value);
-                ReportPropertyChanging("address_id");
-                _address_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("address_id");
-                Onaddress_idChanged();
-            }
-        }
-        private global::System.Int32 _address_id;
-        partial void Onaddress_idChanging(global::System.Int32 value);
-        partial void Onaddress_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String name
         {
             get
@@ -790,6 +545,126 @@ namespace asset_tracker_api.Models
         private global::System.DateTime _add_date;
         partial void Onadd_dateChanging(global::System.DateTime value);
         partial void Onadd_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String line_1
+        {
+            get
+            {
+                return _line_1;
+            }
+            set
+            {
+                Online_1Changing(value);
+                ReportPropertyChanging("line_1");
+                _line_1 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("line_1");
+                Online_1Changed();
+            }
+        }
+        private global::System.String _line_1;
+        partial void Online_1Changing(global::System.String value);
+        partial void Online_1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String line_2
+        {
+            get
+            {
+                return _line_2;
+            }
+            set
+            {
+                Online_2Changing(value);
+                ReportPropertyChanging("line_2");
+                _line_2 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("line_2");
+                Online_2Changed();
+            }
+        }
+        private global::System.String _line_2;
+        partial void Online_2Changing(global::System.String value);
+        partial void Online_2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String state
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                OnstateChanging(value);
+                ReportPropertyChanging("state");
+                _state = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("state");
+                OnstateChanged();
+            }
+        }
+        private global::System.String _state;
+        partial void OnstateChanging(global::System.String value);
+        partial void OnstateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String zip
+        {
+            get
+            {
+                return _zip;
+            }
+            set
+            {
+                OnzipChanging(value);
+                ReportPropertyChanging("zip");
+                _zip = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("zip");
+                OnzipChanged();
+            }
+        }
+        private global::System.String _zip;
+        partial void OnzipChanging(global::System.String value);
+        partial void OnzipChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String city_
+        {
+            get
+            {
+                return _city_;
+            }
+            set
+            {
+                Oncity_Changing(value);
+                ReportPropertyChanging("city_");
+                _city_ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("city_");
+                Oncity_Changed();
+            }
+        }
+        private global::System.String _city_;
+        partial void Oncity_Changing(global::System.String value);
+        partial void Oncity_Changed();
 
         #endregion
     
@@ -805,8 +680,8 @@ namespace asset_tracker_api.Models
     {
         public roomDTO toDTO()
         {
-            return new roomDTO() 
-            { 
+            return new roomDTO()
+            {
                 id = this.id,
                 facility_id = this.facility_id,
                 name = this.name,

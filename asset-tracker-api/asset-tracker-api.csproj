@@ -125,7 +125,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BasicHttpAuthorizeAttribute .cs" />
-    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\FacilityAssetsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />

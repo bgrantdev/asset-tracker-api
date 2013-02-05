@@ -13,6 +13,11 @@ namespace AssetTracker.DTO
         public DateTime add_date { get; set; }
         public Int32 room_count { get; set; }
         public Int32 asset_count { get; set; }
+        public String line_1 { get; set; }
+        public String line_2 { get; set; }
+        public String city { get; set; }
+        public String state { get; set;}
+        public String zip { get; set; }
     }
 
     public class addressDTO
