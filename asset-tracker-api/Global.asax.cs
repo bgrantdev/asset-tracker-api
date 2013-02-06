@@ -16,6 +16,8 @@ namespace asset_tracker_api
     {
         protected void Application_Start()
         {
+            var xml = GlobalConfiguration.Configuration.Formatters.XmlFormatter;
+            xml.UseXmlSerializer = true;
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

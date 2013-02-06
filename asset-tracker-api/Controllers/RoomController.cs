@@ -81,7 +81,11 @@ namespace asset_tracker_api.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-
+            IQueryable<asset> assets = db.assets.Where(a => a.room_id == id);
+            foreach (asset aAsset in assets)
+            {
+                db.assets.DeleteObject(aAsset);
+            }
             db.rooms.DeleteObject(room);
 
             try
