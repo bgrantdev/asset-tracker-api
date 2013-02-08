@@ -107,18 +107,5 @@ namespace asset_tracker_api.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
-        public static string FormBufferToString(HttpRequest request)
-        {
-            if (request.TotalBytes > 0)
-            {
-                string xml = new StreamReader(request.InputStream).ReadToEnd();
-                return xml;
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
     }
 }

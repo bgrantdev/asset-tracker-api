@@ -22,6 +22,7 @@ using AssetTracker.DTO;
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_asset_room", "room", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.room), "asset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.asset), true)]
 [assembly: EdmRelationshipAttribute("AssetTrackerModel", "fk_room_facility", "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.facility), "room", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.room), true)]
+[assembly: EdmRelationshipAttribute("AssetTrackerModel", "FK_facility_user", "aspnet_Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(asset_tracker_api.Models.aspnet_User), "facility", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(asset_tracker_api.Models.facility), true)]
 
 #endregion
 
@@ -120,6 +121,22 @@ namespace asset_tracker_api.Models
             }
         }
         private ObjectSet<room> _rooms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<aspnet_User> aspnet_Users
+        {
+            get
+            {
+                if ((_aspnet_Users == null))
+                {
+                    _aspnet_Users = base.CreateObjectSet<aspnet_User>("aspnet_Users");
+                }
+                return _aspnet_Users;
+            }
+        }
+        private ObjectSet<aspnet_User> _aspnet_Users;
 
         #endregion
         #region AddTo Methods
@@ -147,6 +164,14 @@ namespace asset_tracker_api.Models
         {
             base.AddObject("rooms", room);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the aspnet_Users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToaspnet_Users(aspnet_User aspnet_Users)
+        {
+            base.AddObject("aspnet_Users", aspnet_Users);
+        }
 
         #endregion
     }
@@ -155,6 +180,240 @@ namespace asset_tracker_api.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AssetTrackerModel", Name="aspnet_Users")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class aspnet_User : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new aspnet_Users object.
+        /// </summary>
+        /// <param name="applicationId">Initial value of the ApplicationId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="loweredUserName">Initial value of the LoweredUserName property.</param>
+        /// <param name="isAnonymous">Initial value of the IsAnonymous property.</param>
+        /// <param name="lastActivityDate">Initial value of the LastActivityDate property.</param>
+        public static aspnet_User Createaspnet_Users(global::System.Guid applicationId, global::System.Guid userId, global::System.String userName, global::System.String loweredUserName, global::System.Boolean isAnonymous, global::System.DateTime lastActivityDate)
+        {
+            aspnet_User aspnet_Users = new aspnet_User();
+            aspnet_Users.ApplicationId = applicationId;
+            aspnet_Users.UserId = userId;
+            aspnet_Users.UserName = userName;
+            aspnet_Users.LoweredUserName = loweredUserName;
+            aspnet_Users.IsAnonymous = isAnonymous;
+            aspnet_Users.LastActivityDate = lastActivityDate;
+            return aspnet_Users;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ApplicationId
+        {
+            get
+            {
+                return _ApplicationId;
+            }
+            set
+            {
+                OnApplicationIdChanging(value);
+                ReportPropertyChanging("ApplicationId");
+                _ApplicationId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ApplicationId");
+                OnApplicationIdChanged();
+            }
+        }
+        private global::System.Guid _ApplicationId;
+        partial void OnApplicationIdChanging(global::System.Guid value);
+        partial void OnApplicationIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String LoweredUserName
+        {
+            get
+            {
+                return _LoweredUserName;
+            }
+            set
+            {
+                OnLoweredUserNameChanging(value);
+                ReportPropertyChanging("LoweredUserName");
+                _LoweredUserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("LoweredUserName");
+                OnLoweredUserNameChanged();
+            }
+        }
+        private global::System.String _LoweredUserName;
+        partial void OnLoweredUserNameChanging(global::System.String value);
+        partial void OnLoweredUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MobileAlias
+        {
+            get
+            {
+                return _MobileAlias;
+            }
+            set
+            {
+                OnMobileAliasChanging(value);
+                ReportPropertyChanging("MobileAlias");
+                _MobileAlias = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MobileAlias");
+                OnMobileAliasChanged();
+            }
+        }
+        private global::System.String _MobileAlias;
+        partial void OnMobileAliasChanging(global::System.String value);
+        partial void OnMobileAliasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsAnonymous
+        {
+            get
+            {
+                return _IsAnonymous;
+            }
+            set
+            {
+                OnIsAnonymousChanging(value);
+                ReportPropertyChanging("IsAnonymous");
+                _IsAnonymous = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsAnonymous");
+                OnIsAnonymousChanged();
+            }
+        }
+        private global::System.Boolean _IsAnonymous;
+        partial void OnIsAnonymousChanging(global::System.Boolean value);
+        partial void OnIsAnonymousChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastActivityDate
+        {
+            get
+            {
+                return _LastActivityDate;
+            }
+            set
+            {
+                OnLastActivityDateChanging(value);
+                ReportPropertyChanging("LastActivityDate");
+                _LastActivityDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastActivityDate");
+                OnLastActivityDateChanged();
+            }
+        }
+        private global::System.DateTime _LastActivityDate;
+        partial void OnLastActivityDateChanging(global::System.DateTime value);
+        partial void OnLastActivityDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_facility_user", "facility")]
+        public EntityCollection<facility> facilities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<facility>("AssetTrackerModel.FK_facility_user", "facility");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<facility>("AssetTrackerModel.FK_facility_user", "facility", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -178,6 +437,7 @@ namespace asset_tracker_api.Models
                 last_scan = this.last_scan.ToString("d"),
             };
         }
+
         #region Factory Method
     
         /// <summary>
@@ -425,6 +685,7 @@ namespace asset_tracker_api.Models
                 zip = this.zip,
             };
         }
+
         #region Factory Method
     
         /// <summary>
@@ -668,6 +929,47 @@ namespace asset_tracker_api.Models
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("AssetTrackerModel", "FK_facility_user", "aspnet_Users")]
+        public aspnet_User aspnet_Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_User>("AssetTrackerModel.FK_facility_user", "aspnet_Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_User>("AssetTrackerModel.FK_facility_user", "aspnet_Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<aspnet_User> aspnet_UsersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_User>("AssetTrackerModel.FK_facility_user", "aspnet_Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<aspnet_User>("AssetTrackerModel.FK_facility_user", "aspnet_Users", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -688,6 +990,7 @@ namespace asset_tracker_api.Models
                 add_date = this.add_date,
             };
         }
+
 
         #region Factory Method
     

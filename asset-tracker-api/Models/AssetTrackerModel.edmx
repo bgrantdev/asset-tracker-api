@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="AssetTrackerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AssetTrackerModelStoreContainer">
+          <EntitySet Name="aspnet_Users" EntityType="AssetTrackerModel.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="asset" EntityType="AssetTrackerModel.Store.asset" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="facility" EntityType="AssetTrackerModel.Store.facility" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="room" EntityType="AssetTrackerModel.Store.room" store:Type="Tables" Schema="dbo" />
@@ -17,11 +18,27 @@
             <End Role="room" EntitySet="room" />
             <End Role="asset" EntitySet="asset" />
           </AssociationSet>
+          <AssociationSet Name="FK_facility_user" Association="AssetTrackerModel.Store.FK_facility_user">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="facility" EntitySet="facility" />
+          </AssociationSet>
           <AssociationSet Name="fk_room_facility" Association="AssetTrackerModel.Store.fk_room_facility">
             <End Role="facility" EntitySet="facility" />
             <End Role="room" EntitySet="room" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="asset">
           <Key>
             <PropertyRef Name="id" />
@@ -82,6 +99,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_facility_user">
+          <End Role="aspnet_Users" Type="AssetTrackerModel.Store.aspnet_Users" Multiplicity="1" />
+          <End Role="facility" Type="AssetTrackerModel.Store.facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="facility">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_room_facility">
           <End Role="facility" Type="AssetTrackerModel.Store.facility" Multiplicity="1" />
           <End Role="room" Type="AssetTrackerModel.Store.room" Multiplicity="*" />
@@ -114,6 +143,11 @@
             <End Role="facility" EntitySet="facilities" />
             <End Role="room" EntitySet="rooms" />
           </AssociationSet>
+          <EntitySet Name="aspnet_Users" EntityType="AssetTrackerModel.aspnet_Users" />
+          <AssociationSet Name="FK_facility_user" Association="AssetTrackerModel.FK_facility_user">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="facility" EntitySet="facilities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="asset">
           <Key>
@@ -141,6 +175,7 @@
           <Property Type="String" Name="state" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="zip" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="city_" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Users" Relationship="AssetTrackerModel.FK_facility_user" FromRole="facility" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="room">
           <Key>
@@ -187,6 +222,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoweredUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MobileAlias" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" />
+          <NavigationProperty Name="facilities" Relationship="AssetTrackerModel.FK_facility_user" FromRole="aspnet_Users" ToRole="facility" />
+        </EntityType>
+        <Association Name="FK_facility_user">
+          <End Type="AssetTrackerModel.aspnet_Users" Role="aspnet_Users" Multiplicity="1" />
+          <End Type="AssetTrackerModel.facility" Role="facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="facility">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -220,6 +280,19 @@
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="add_date" ColumnName="add_date" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Users">
+            <EntityTypeMapping TypeName="AssetTrackerModel.aspnet_Users">
+              <MappingFragment StoreEntitySet="aspnet_Users">
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -245,17 +318,22 @@
         <EntityTypeShape EntityType="AssetTrackerModel.facility" Width="1.5" PointX="3" PointY="2.75" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="AssetTrackerModel.room" Width="1.5" PointX="5.25" PointY="6.625" Height="1.7879850260416657" IsExpanded="true" />
         <AssociationConnector Association="AssetTrackerModel.fk_asset_facility" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="4.93724609375" />
-          <ConnectorPoint PointX="7.5" PointY="4.93724609375" />
+          <ConnectorPoint PointX="4.5" PointY="5.0333968098958328" />
+          <ConnectorPoint PointX="7.5" PointY="5.0333968098958328" />
         </AssociationConnector>
         <AssociationConnector Association="AssetTrackerModel.fk_asset_room" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.7785953776041659" />
           <ConnectorPoint PointX="7.5" PointY="6.7785953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="AssetTrackerModel.fk_room_facility" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="5.4994921875" />
+          <ConnectorPoint PointX="3.75" PointY="5.6917936197916656" />
           <ConnectorPoint PointX="3.75" PointY="7.5189925130208328" />
           <ConnectorPoint PointX="5.25" PointY="7.5189925130208328" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AssetTrackerModel.aspnet_Users" Width="1.5" PointX="0.75" PointY="3" Height="2.5571907552083317" />
+        <AssociationConnector Association="AssetTrackerModel.FK_facility_user" >
+          <ConnectorPoint PointX="2.25" PointY="4.2785953776041659" />
+          <ConnectorPoint PointX="3" PointY="4.2785953776041659" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -11,10 +11,11 @@ using System.Web.Http;
 using asset_tracker_api.Models;
 using AssetTracker.DTO;
 using System.Security.Principal;
+using System.Web.Security;
 
 namespace asset_tracker_api.Controllers
 {
-    //[BasicHttpAuthorize]
+    [BasicHttpAuthorize]
     public class FacilityController : ApiController
     {
         private RBSAssetTrackerEntities db = new RBSAssetTrackerEntities();
@@ -23,9 +24,10 @@ namespace asset_tracker_api.Controllers
         
         public IEnumerable<facilityDTO> Getfacilities()
         {
-            
+            Guid id = (Guid)Membership.GetUser(HttpContext.Current.User.Identity.Name).ProviderUserKey;
+            aspnet_User user = db.aspnet_Users.Single(u => u.UserName == HttpContext.Current.User.Identity.Name);
             List<facilityDTO> facility_list = new List<facilityDTO>();
-            foreach (facility aFacility in db.facilities)
+            foreach (facility aFacility in db.facilities.Where(f => f.user_id == user.UserId))
             {
                 facility_list.Add(aFacility.toDTO());
             }
@@ -98,9 +100,16 @@ namespace asset_tracker_api.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-
+            IQueryable<asset> assets = db.assets.Where(a => a.facility_id == id);
+            foreach (asset aAsset in assets){
+                db.assets.DeleteObject(aAsset);
+            }
+            IQueryable<room> rooms = db.rooms.Where(r => r.facility_id == id);
+            foreach (room aRoom in rooms)
+            {
+                db.rooms.DeleteObject(aRoom);
+            }
             db.facilities.DeleteObject(facility);
-
             try
             {
                 db.SaveChanges();
